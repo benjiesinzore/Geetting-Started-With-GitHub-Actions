@@ -1,1 +1,28 @@
 name: Build and Test
+
+on :
+  push:
+    branches :
+        - main
+
+    tags :
+      - 'v*'
+
+  workflow_dispatch :
+  schedule :
+    - cron : '0 1 * * *'
+
+jobs :
+
+  local_test_job :
+    name : Running Local Tests
+    runs-on : ubuntu-latest
+
+    continue-on-error : true
+    steps :
+      - name : Checkout
+      uses : actions/checkout
+      - name : Set up JDK 11
+        uses : action/setup-java@v1
+        with :
+          java-version : 11
