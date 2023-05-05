@@ -15,7 +15,6 @@ jobs:
         run: |
           ./gradlew build
       - name: Deploy code
-        uses: some-deploy-action@v1
         with:
           environment: production
 
