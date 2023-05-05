@@ -1,21 +1,21 @@
 name: Build and Test
 
-    on:
-      push:
-        branches: [ main ]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build and test code
+        run: |
+          ./gradlew build
+      - name: Deploy code
+        uses: some-deploy-action@v1
+        with:
+          environment: production
 
-    jobs:
-      build:
-        runs-on: ubuntu-latest
-
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v2
-
-          - name: Setup JDK
-            uses: actions/setup-java@v2
-            with:
-              java-version: '11'
-
-          - name: Build app
-            run: ./gradlew assembleDebug
